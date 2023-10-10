@@ -12,3 +12,5 @@ from models.review import Review
 from models.place import Place
 from models.user import User
 import shlex
+
+classes = {"BaseModel": Basemodel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
