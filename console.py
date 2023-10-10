@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ console """
 
-imprt cmd
+import cmd
 from datatime import datetime
 from models
 from models.city import City
