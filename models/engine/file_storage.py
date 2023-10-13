@@ -4,7 +4,6 @@ File storage
 
 """
 import json
-import os
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -12,10 +11,6 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-
-classes = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
-           'State': State, 'City': City, 'Amenity': Amenity,
-           'Review': Review}
 
 
 class FileStorage:
@@ -37,7 +32,7 @@ class FileStorage:
         Returns:
             the dictionary of objects
         """
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """
@@ -49,7 +44,8 @@ class FileStorage:
             None
 
         """
-        self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
+        ocname = obj.__class__.__name__
+        FileStorage.__objects["{}.{}".format(ocname, obj.id)] = obj
 
     def save(self):
         """
@@ -63,11 +59,10 @@ class FileStorage:
         Returns:
             None
         """
-        new = {}
-        for elem in self.__objects:
-            new[elem] = self.__objects[elem].to_dict()
-        with open(self.__file_path, 'w') as fd:
-            json.dump(new, fd)
+        odict = FileStorage.__objects
+        objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump(objdict, f)
 
     def reload(self):
         """
@@ -81,10 +76,12 @@ class FileStorage:
         Returns:
             None
         """
-        if os.path.exists(self.__file_path) is True:
-            with open(self.__file_path, 'r') as fd:
-                var = json.load(fd)
-                for elem in var:
-                    aux = classes[var[elem]['__class__']]
-                    self.__objects[elem] = aux(**(var[elem]))
-
+        try:
+            with open(FileStorage.__file_path) as f:
+                objdict = json.load(f)
+                for o in objdict.values():
+                    cls_name = o["__class__"]
+                    del o[ "__class__"]
+                    self.new(eval(cls_name)(**o))
+        except FileNotFoundError:
+            return

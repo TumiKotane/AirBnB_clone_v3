@@ -11,6 +11,7 @@ Unittest classes:
     TestHBNBCommand_destroy
     TestHBNBCommand_update
 """
+
 import os
 import sys
 import unittest
@@ -23,7 +24,7 @@ from unittest.mock import patch
 class TestHBNBCommand_prompting(unittest.TestCase):
     """ Unittests for testing prompting of the HBNB command interpreter """
 
-     def test_prompt_string(self):
+    def test_prompt_string(self):
         self.assertEqual("(hbnb) ", HBNBCommand.prompt)
 
     def test_empty_line(self):
