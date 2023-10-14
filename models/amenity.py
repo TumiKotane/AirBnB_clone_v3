@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-"""Inherances from Base Model"""
-
+""" State Module for HBNB project """
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Class Amenity"""
-    name = ''
+    name = ""
 

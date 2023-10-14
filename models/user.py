@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-"""Inherances from Base Model"""
-
+"""This module defines a class User"""
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """Class User"""
+    """This class defines a user by various attributes"""
     email = ''
     password = ''
     first_name = ''

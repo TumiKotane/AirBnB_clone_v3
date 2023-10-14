@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-"""Inherances from Base Model"""
-
+""" City Module for HBNB project """
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """Class City"""
-    state_id = ''
-    name = ''
+    """ The city class, contains state ID and name """
+    state_id = ""
+    name = ""
 
