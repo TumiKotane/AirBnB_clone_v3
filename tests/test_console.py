@@ -1484,7 +1484,7 @@ class TestHBNBCommand_count(unittest.TestCase):
             pass
         FileStorage._FileStorage_objects = {}
 
-        @classmethod
+    @classmethod
     def tearDown(self):
         try:
             os.remove("file.json")
