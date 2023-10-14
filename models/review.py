@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-"""Inherances from Base Model"""
-
+""" Review module for the HBNB project """
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """Class Review"""
-    place_id = ''
-    user_id = ''
-    text = ''
+    """ Review classto store review information """
+    place_id = ""
+    user_id = ""
+    text = ""
 
