@@ -155,7 +155,14 @@ update
 Updates an instance based on the class name, id, and kwargs passed. Update the file.json
 
 (hbnb) create User
+<<<<<<< HEAD
 1afa16
 
 
+=======
+1afa163d-486e-467a-8d38-3040afeaa1a1
+(hbnb) update User 1afa163d-486e-467a-8d38-3040afeaa1a1 email "airbnb@mail.com"
+(hbnb) show User 1afa163d-486e-467a-8d38-3040afeaa1a1
+[User] (s) [User] (1afa163d-486e-467a-8d38-3040afeaa1a1) {'id': '1afa163d-486e-467a-8d38-3040afeaa1a1', 'created_at': datetime.datetime(2021, 11, 14, 23, 42, 10, 502157), 'updated_at': datetime.datetime(2021, 11, 14, 23, 42, 10, 502186), 'email': 'airbnb@mail.com'}
+>>>>>>> d6fd564985207bc7dce28ec7b6aa917095a065c7
 (hbnb)
