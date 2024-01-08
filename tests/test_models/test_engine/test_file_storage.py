@@ -115,27 +115,57 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(json.loads(string), json.loads(js))
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_no_class(self):
+        """ test get with a non existing class
+        """
+        storage = FileStorage()
+        one = storage.get("NO", "09231280jdodasd")
+        self.assertEqual(one, None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_class_no_id(self):
+        """ test get if a class id doesn´t exist
+        """
+        storage = FileStorage()
+        one = storage.get("State", "09231280jdodasd")
+        self.assertEqual(one, None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_get(self):
-        """ Tests method for obtaining an instance file storage"""
+        """ test get return
+        """
         storage = FileStorage()
-        dic = {"name": "Vecindad"}
-        instance = State(**dic)
-        storage.new(instance)
-        storage.save()
+        first_elem = list(storage.all("State").values())[0]
+        first_state_id = first_elem.id
+        one = storage.get("State", first_state_id)
+        self.assertEqual(one, first_elem)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_no_class(self):
+        """ test count is no class
+        """
         storage = FileStorage()
-        get_instance = storage.get(State, instance.id)
-        self.assertEqual(get_instance, instance)
+        counter = 0
+        dic = storage.all()
+        for elem in dic:
+            counter = counter + 1
+        self.assertEqual(counter, storage.count())
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_fail(self):
+        """ test count if no valid class
+        """
+        storage = FileStorage()
+        counter = 0
+        self.assertEqual(counter, storage.count("NO_CLASS"))
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count(self):
-        """ Tests count method file storage """
+        """ test count with class user
+        """
         storage = FileStorage()
-        dic = {"name": "Vecindad"}
-        state = State(**dic)
-        storage.new(state)
-        dic = {"name": "Mexico"}
-        city = City(**dic)
-        storage.new(city)
-        storage.save()
-        c = storage.count()
-        self.assertEqual(len(storage.all()), c)
+        counter = 0
+        dic = storage.all("User")
+        for elem in dic:
+            counter = counter + 1
+        self.assertEqual(counter, storage.count("User"))
