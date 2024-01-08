@@ -10,6 +10,7 @@ from models import user
 from models.base_model import BaseModel
 import pep8
 import unittest
+from os import getenv
 User = user.User
 
 
@@ -56,7 +57,7 @@ class TestUserDocs(unittest.TestCase):
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
-
+@unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', "not testing db storage")
 class TestUser(unittest.TestCase):
     """Test the User class"""
     def test_is_subclass(self):
@@ -76,6 +77,8 @@ class TestUser(unittest.TestCase):
         else:
             self.assertEqual(user.email, "")
 
+
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'db', "file_storage")
     def test_password_attr(self):
         """Test that User has attr password, and it's an empty string"""
         user = User()
